@@ -1317,7 +1317,21 @@ footer {
       : 'Solicitar contratação';
   }
 
-  function submitForm() {
+  <!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+emailjs.init({
+  publicKey: "2WgIVuTD_CEadSqfk"
+});
+
+console.log("EmailJS carregado com sucesso");
+
+function submitForm() {
+
+    console.log("Botão clicado");
+
+  const nome = document.getElementById('fname').value;
 
   const nome = document.getElementById('fname').value;
   const telefone = document.getElementById('fphone').value;
@@ -1338,35 +1352,18 @@ footer {
       mensagem: mensagem
     }
   )
-  .then(() => {
+  .then(function(response) {
+      console.log("SUCESSO:", response);
 
       document.getElementById("formBody").style.display = "none";
       document.getElementById("successScreen").style.display = "block";
-
   })
-  .catch((error) => {
-      alert("Erro ao enviar formulário.");
-      console.error(error);
+  .catch(function(error) {
+      console.error("ERRO COMPLETO:", error);
+      alert("Erro: " + JSON.stringify(error));
   });
 }
-
-  function mostrarSucesso() {
-    document.getElementById('formBody').style.display = 'none';
-    document.getElementById('successScreen').style.display = 'block';
-    if (waitlistOn) {
-      document.getElementById('successTitle').textContent = 'Você está na lista de espera!';
-      document.getElementById('successMsg').innerHTML =
-        'Assim que uma vaga abrir, entrarei em contato com você em primeira mão. Fique de olho no <strong>WhatsApp</strong>.';
-    }
-  }
 </script>
 
-   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-<script>
-emailjs.init({
-  publicKey: "2WgIVuTD_CEadSqfk"
-});
-</script>
 </body>
 </html>
